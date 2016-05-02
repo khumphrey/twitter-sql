@@ -9,10 +9,6 @@ module.exports = function makeRouterWithSockets(io, client) {
 
     // a reusable function
     function respondWithAllTweets(req, res, next) {
-        // client.query('SELECT * FROM tweets JOIN users ON tweets.userId = users.id', function(err, result) {
-        //     var tweets = result.rows;
-        //     res.render('index', { title: 'Twitter.js', tweets: tweets, showForm: true });
-        // });
         client.query('SELECT * FROM tweets JOIN users ON tweets.userId = users.id')
             .then(result => {
                 let tweets = result.rows;
@@ -26,10 +22,6 @@ module.exports = function makeRouterWithSockets(io, client) {
 
     // single-user page
     router.get('/users/:username', function(req, res, next) {
-        // client.query('SELECT * FROM tweets JOIN users ON tweets.userId = users.id WHERE name = $1', [req.params.username], function(err, result) {
-        //     var tweets = result.rows;
-        //     res.render('index', { title: 'Twitter.js', tweets: tweets, showForm: true, username: req.params.username });
-        // });
         client.query('SELECT * FROM tweets JOIN users ON tweets.userId = users.id WHERE name = $1', [req.params.username])
             .then(result => {
                 let tweets = result.rows;
@@ -44,10 +36,6 @@ module.exports = function makeRouterWithSockets(io, client) {
                 let tweets = result.rows;
                 res.render('index', { title: 'Twitter.js', tweets: tweets, showForm: true });
             });
-        // client.query('SELECT * FROM tweets JOIN users ON tweets.userId = users.id WHERE tweets.id = $1', [req.params.id], function(err, result) {
-        //     var tweets = result.rows;
-        //     res.render('index', { title: 'Twitter.js', tweets: tweets, showForm: true });
-        // });
     });
 
     // create a new tweet
@@ -62,6 +50,8 @@ module.exports = function makeRouterWithSockets(io, client) {
                 res.redirect('/');
             })
 
+        //ALTERNATES WAYS/IDEAS ------------------------------------
+        
         // client.query('SELECT * FROM users WHERE name = $1', [req.body.name], function(error, result) {
         //   let user = result.rows[0];
         //   if (user) {
