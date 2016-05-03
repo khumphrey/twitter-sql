@@ -42,12 +42,8 @@ app.use('/', makesRouter(io, client));
 // the typical way to use express static middleware.
 app.use(express.static(path.join(__dirname, '/public')));
 
-// // manually-written static file middleware
-// app.use(function(req, res, next){
-//   var mimeType = mime.lookup(req.path);
-//   fs.readFile('./public' + req.path, function(err, fileBuffer){
-//     if (err) return next();
-//     res.header('Content-Type', mimeType);
-//     res.send(fileBuffer);
-//   });
-// });
+//error handling
+app.use(function(err,req,res,next) {
+	res.status(err.status || 404);
+	res.send(err.message);
+});

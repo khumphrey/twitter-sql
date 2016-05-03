@@ -17,6 +17,7 @@ module.exports = function makeRouterWithSockets(io, client) {
                 let tweets = result.rows;
                 res.render('index', { title: 'Twitter.js', tweets: tweets, showForm: true });
             })
+            .catch(next);
     }
 
     // here we basically treet the root view and tweets view as identical
@@ -29,7 +30,8 @@ module.exports = function makeRouterWithSockets(io, client) {
             .then(result => {
                 let tweets = result.rows;
                 res.render('index', { title: 'Twitter.js', tweets: tweets, showForm: true, username: req.params.username });
-            });
+            })
+            .catch(next);
     });
 
     // single-tweet page
@@ -38,7 +40,8 @@ module.exports = function makeRouterWithSockets(io, client) {
             .then(result => {
                 let tweets = result.rows;
                 res.render('index', { title: 'Twitter.js', tweets: tweets, showForm: true });
-            });
+            })
+            .catch(next);
     });
 
     // create a new tweet
@@ -52,6 +55,7 @@ module.exports = function makeRouterWithSockets(io, client) {
                 io.sockets.emit('new_tweet', newTweet);
                 res.redirect('/');
             })
+            .catch(next);
 
         //ALTERNATES WAYS/IDEAS ------------------------------------
         
