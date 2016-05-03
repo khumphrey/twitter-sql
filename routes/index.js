@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const tweetBank = require('../tweetBank.js');
+
 // I am a promise library that can make life easier
 const bluebird = require('bluebird');
 
